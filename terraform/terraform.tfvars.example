@@ -1,0 +1,23 @@
+# Copy this file to terraform.tfvars and fill in your values
+# cp terraform.tfvars.example terraform.tfvars
+
+aws_region               = "us-east-1"
+project_name             = "sapient-etl"
+environment              = "dev"
+
+# Databricks control plane AWS account (414351767826 for US regions)
+databricks_aws_account_id   = "414351767826"
+
+# From your workspace URL: the ?o= parameter
+databricks_workspace_org_id = "YOUR_WORKSPACE_ORG_ID"
+
+# Your Databricks workspace URL
+databricks_workspace_url    = "https://dbc-xxxxx.cloud.databricks.com"
+
+# S3 bucket names (must be globally unique)
+source_bucket_name       = "sapient-etl-source-data-parthamehta"
+delta_bucket_name        = "sapient-etl-delta-lake-parthamehta"
+
+# Folder structure matching the ETL's parent/child scan pattern
+sample_parent_folders    = ["events", "transactions"]
+sample_child_folders     = ["2026-08-20", "2026-08-21", "2026-08-25"]
