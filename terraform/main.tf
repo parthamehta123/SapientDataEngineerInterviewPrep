@@ -114,6 +114,7 @@ resource "aws_iam_role" "databricks_s3_access" {
     Version = "2012-10-17"
     Statement = [
       {
+        Sid    = "DatabricksAssumeRole"
         Effect = "Allow"
         Principal = {
           AWS = "arn:aws:iam::${var.databricks_aws_account_id}:root"
@@ -124,6 +125,14 @@ resource "aws_iam_role" "databricks_s3_access" {
             "sts:ExternalId" = var.databricks_workspace_org_id
           }
         }
+      },
+      {
+        Sid    = "EC2AssumeRole"
+        Effect = "Allow"
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+        Action = "sts:AssumeRole"
       }
     ]
   })
