@@ -11,3 +11,8 @@ __pycache__/
 
 # OS
 .DS_Store
+
+# Interview prep (local only)
+[0-9]*-*.py
+input.csv
+query-profile_*.json
