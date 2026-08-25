@@ -301,7 +301,7 @@ def apply_quality_rules(df: DataFrame, cfg: JobConfig) -> tuple[DataFrame, DataF
 
 
 def write_quarantine(invalid_df: DataFrame, cfg: JobConfig) -> None:
-    if invalid_df.rdd.isEmpty() or not cfg.quarantine_table:
+    if len(invalid_df.head(1)) == 0 or not cfg.quarantine_table:
         return
 
     (
@@ -325,7 +325,7 @@ def deduplicate(valid_df: DataFrame, cfg: JobConfig) -> DataFrame:
 
 
 def write_to_delta(valid_df: DataFrame, cfg: JobConfig, spark: SparkSession) -> DataFrame:
-    if valid_df.rdd.isEmpty():
+    if len(valid_df.head(1)) == 0:
         logger.info("No valid rows to write to Delta")
         return valid_df
 
@@ -369,7 +369,7 @@ def write_to_delta(valid_df: DataFrame, cfg: JobConfig, spark: SparkSession) -> 
 def write_to_snowflake(df: DataFrame, cfg: JobConfig) -> None:
     if not cfg.snowflake_enabled:
         return
-    if df.rdd.isEmpty():
+    if len(df.head(1)) == 0:
         logger.info("No valid rows to write to Snowflake")
         return
 
