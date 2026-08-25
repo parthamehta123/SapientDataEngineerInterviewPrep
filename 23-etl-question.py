@@ -252,7 +252,7 @@ def _read_by_format(spark: SparkSession, fmt: str, paths: List[str], cfg: JobCon
     return (
         df.withColumn("_file_format", F.lit(fmt))
         .withColumn("_ingestion_ts", F.current_timestamp())
-        .withColumn("_source_file", F.input_file_name())
+        .withColumn("_source_file", F.col("_metadata.file_path"))
         .withColumn("_run_id", F.lit(run_id))
     )
 
